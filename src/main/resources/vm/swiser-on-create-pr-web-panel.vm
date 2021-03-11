@@ -1,0 +1,19 @@
+##  File: OnCreatePullRequestCondition.java
+##  Project: swiser
+##  Created by Ivan Bukshev on 10.03.2021.
+##  Copyright (c) 2021 Ivan Bukshev. All rights reserved.
+
+<html>
+
+##<head>
+##    <meta name="decorator" content="atl.general">
+##    $webResourceManager.requireResourcesForContext("main-resources")
+##</head>
+
+<body>
+##<section class="container">
+    <div>Hello</div>
+##</section>
+</body>
+
+</html>
