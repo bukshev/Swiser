@@ -8,8 +8,9 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.oncreate;
 
+import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.factory.IServletProcessingStrategyFactory;
-import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.IServletRequestProcessingStrategy;
+import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.IServletRequestProcessingStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,8 +30,15 @@ public final class OnCreatePullRequestServlet extends HttpServlet {
 
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
-        logger.warn("From servlet. Request: " + request.getRequestURI());
+        logger.info("Determine the processing strategy for request: " + request.getRequestURI());
         final IServletRequestProcessingStrategy strategy = processingStrategyFactory.getStrategy(request, response);
-        strategy.startProcessing();
+
+        logger.info("Start processing '" + request.getRequestURI() + "' with strategy: " + strategy.getClass().getSimpleName());
+        try {
+            strategy.startProcessing();
+
+        } catch (final StrategyProcessingException exception) {
+            logger.error(exception.toString());
+        }
     }
 }

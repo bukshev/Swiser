@@ -8,7 +8,7 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.factory;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.IServletRequestProcessingStrategy;
+import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.IServletRequestProcessingStrategy;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
