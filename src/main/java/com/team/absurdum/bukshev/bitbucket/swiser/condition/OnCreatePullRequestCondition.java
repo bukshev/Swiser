@@ -10,6 +10,7 @@ package com.team.absurdum.bukshev.bitbucket.swiser.condition;
 
 import com.atlassian.plugin.PluginParseException;
 import com.atlassian.plugin.web.Condition;
+import com.team.absurdum.bukshev.bitbucket.swiser.utilities.IPluginDisplayDirector;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,6 +21,12 @@ public final class OnCreatePullRequestCondition implements Condition {
 
     private static final Logger logger = LoggerFactory.getLogger(OnCreatePullRequestCondition.class);
 
+    private final IPluginDisplayDirector pluginDisplayDirector;
+
+    public OnCreatePullRequestCondition(final IPluginDisplayDirector pluginDisplayDirector) {
+        this.pluginDisplayDirector = pluginDisplayDirector;
+    }
+
     @Override
     public void init(final Map<String, String> map) throws PluginParseException {
         // Do nothing.
@@ -28,7 +35,6 @@ public final class OnCreatePullRequestCondition implements Condition {
     @Override
     public boolean shouldDisplay(final Map<String, Object> map) {
         final HttpServletRequest request = (HttpServletRequest) map.get("request");
-        logger.warn("test: " + map.toString() + "; request: " + request.toString());
-        return true;
+        return pluginDisplayDirector.shouldDisplayOnPage(request.getRequestURI());
     }
 }

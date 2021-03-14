@@ -5,15 +5,36 @@
 
 <html>
 
-##<head>
-##    <meta name="decorator" content="atl.general">
-##    $webResourceManager.requireResourcesForContext("main-resources")
-##</head>
+<head>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("main-resources")
+</head>
 
 <body>
-##<section class="container">
-    <div>Hello</div>
-##</section>
+<div>
+    <script>SwiserPullRequestWebPanel.sync(AJS.$)</script>
+</div>
+<div>Hello</div>
+<div class="swiser-pb-container">
+    <input type="radio" class="swiser-pb-radio" name="progress" value="five" id="five">
+    <label for="five" class="swiser-pb-label">5%</label>
+
+    <input type="radio" class="swiser-pb-radio" name="progress" value="twentyfive" id="twentyfive" checked>
+    <label for="twentyfive" class="swiser-pb-label">25%</label>
+
+    <input type="radio" class="swiser-pb-radio" name="progress" value="fifty" id="fifty">
+    <label for="fifty" class="swiser-pb-label">50%</label>
+
+    <input type="radio" class="swiser-pb-radio" name="progress" value="seventyfive" id="seventyfive">
+    <label for="seventyfive" class="swiser-pb-label">75%</label>
+
+    <input type="radio" class="swiser-pb-radio" name="progress" value="onehundred" id="onehundred">
+    <label for="onehundred" class="swiser-pb-label">100%</label>
+
+    <div class="swiser-pb-progress">
+        <div class="swiser-pb-progress-bar"></div>
+    </div>
+</div>
 </body>
 
 </html>

@@ -22,15 +22,22 @@
         <url-pattern>/swiser/candidates</url-pattern>
     </servlet>
 
-    <!-- Client Resources -->
-    <client-resource key="swiser-on-create-pr-client-resource" name="OnCreatePullRequestClientResource">
-        <directory location="/css/oncreate" />
-    </client-resource>
-
     <!-- Web Panels -->
-    <web-panel key="swiser-on-create-pr-web-panel" location="bitbucket.web.repository.banner">
+    <web-panel key="swiser-on-create-pr-web-panel-key" location="bitbucket.web.repository.banner">
         <resource name="view" type="velocity" location="/vm/swiser-on-create-pr-web-panel.vm"/>
         <condition class="com.team.absurdum.bukshev.bitbucket.swiser.condition.OnCreatePullRequestCondition" />
     </web-panel>
+
+    <!-- Client Resources -->
+    <client-resource key="swiser-on-create-pr-client-resource-key" name="Client-resources for widget on OnCreate-PR Page">
+        <directory location="/css/oncreate" />
+    </client-resource>
+
+    <!-- Web Resources -->
+    <web-resource key="swiser-on-create-pr-web-resource-key" name="Web-resources for widget on OnCreate-PR Page">
+        <resource type="download" name="orbit-pull-request-widget.js" location="/js/swiser-on-create-pr-web-panel.js" />
+        <dependency>com.team.absurdum.bukshev.bitbucket.swiser:swiser-on-create-pr-client-resource-key</dependency>
+        <context>main-resources</context>
+    </web-resource>
     
 </atlassian-plugin>

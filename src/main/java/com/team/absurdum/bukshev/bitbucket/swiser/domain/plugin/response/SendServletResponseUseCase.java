@@ -6,7 +6,7 @@
 //  Copyright (c) 2021 Ivan Bukshev. All rights reserved.
 //
 
-package com.team.absurdum.bukshev.bitbucket.swiser.domain.processing.response;
+package com.team.absurdum.bukshev.bitbucket.swiser.domain.plugin.response;
 
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 
