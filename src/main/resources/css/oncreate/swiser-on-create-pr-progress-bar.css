@@ -1,104 +1,176 @@
 /*
- * Copyright (c) 2012-2013 Thibaut Courouble
- * http://www.cssflow.com
- * Licensed under the MIT License
- *
- * Sass/SCSS source: https://goo.gl/UhXKg
- * PSD by Vin Thomas: https://goo.gl/n1M2e
- */
+    Author: Mike Aparicio (https://www.mikeaparicio.com)
+    Date: September 12, 2018
+    Source code: https://codepen.io/peruvianidol/pen/NLMvqO
+*/
+
+:root {
+    --color-white: #fff;
+    --color-black: #333;
+    --color-gray: #75787b;
+    --color-gray-light: #bbb;
+    --color-gray-disabled: #e8e8e8;
+    --color-green: #53a318;
+    --color-green-dark: #383;
+    --font-size-small: .75rem;
+    --font-size-default: .875rem;
+}
+
+* {
+    box-sizing: border-box;
+}
 
 swiser-pb-body {
-    font: 13px/20px "Lucida Grande", Tahoma, Verdana, sans-serif;
-    color: #404040;
-    background: #2a2a2a;
+    margin: 2rem;
+    font-family: 'Open Sans', sans-serif;
+    color: var(--color-black);
 }
 
-.swiser-pb-container {
-    margin: 60px auto;
-    width: 400px;
-    text-align: center;
+swiser-pb-h2 {
+    color: var(--color-gray);
+    font-size: var(--font-size-small);
+    line-height: 1.5;
+    font-weight: 400;
+    text-transform: uppercase;
+    letter-spacing: 3px;
 }
 
-.swiser-pb-container .swiser-pb-progress {
-    margin: 0 auto;
-    width: 400px;
-}
-
-.swiser-pb-progress {
-    padding: 4px;
-    background: rgba(0, 0, 0, 0.25);
-    border-radius: 6px;
-    -webkit-box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.25), 0 1px rgba(255, 255, 255, 0.08);
+swiser-pb-section {
+    margin-bottom: 2rem;
 }
 
 .swiser-pb-progress-bar {
-    height: 16px;
-    border-radius: 4px;
-    background-image: -webkit-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-    background-image: -moz-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-    background-image: -o-linear-gradient(top, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-    background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0.05));
-    -webkit-transition: 0.4s linear;
-    -moz-transition: 0.4s linear;
-    -o-transition: 0.4s linear;
-    transition: 0.4s linear;
-    -webkit-transition-property: width, background-color;
-    -moz-transition-property: width, background-color;
-    -o-transition-property: width, background-color;
-    transition-property: width, background-color;
-    -webkit-box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
-    box-shadow: 0 0 1px 1px rgba(0, 0, 0, 0.25), inset 0 1px rgba(255, 255, 255, 0.1);
+    display: flex;
+    justify-content: space-between;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 1rem 0;
 }
 
-/*
- * Note: using adjacent or general sibling selectors combined with
- *       pseudo classes doesn't work in Safari 5.0 and Chrome 12.
- *       See this article for more info and a potential fix:
- *       https://css-tricks.com/webkit-sibling-bug/
- */
-
-#five:checked ~ .swiser-pb-progress > .swiser-pb-progress-bar {
-    width: 5%;
-    background-color: #f63a0f;
+.swiser-pb-progress-bar li {
+    flex: 2;
+    position: relative;
+    padding: 0 0 14px 0;
+    font-size: var(--font-size-default);
+    line-height: 1.5;
+    color: var(--color-green);
+    font-weight: 600;
+    white-space: nowrap;
+    overflow: visible;
+    min-width: 0;
+    text-align: center;
+    border-bottom: 2px solid var(--color-gray-disabled);
 }
 
-#twentyfive:checked ~ .swiser-pb-progress > .swiser-pb-progress-bar {
-    width: 25%;
-    background-color: #f27011;
+.swiser-pb-progress-bar li:first-child,
+.swiser-pb-progress-bar li:last-child {
+    flex: 1;
 }
 
-#fifty:checked ~ .swiser-pb-progress > .swiser-pb-progress-bar {
-    width: 50%;
-    background-color: #f2b01e;
+.swiser-pb-progress-bar li:last-child {
+    text-align: right;
 }
 
-#seventyfive:checked ~ .swiser-pb-progress > .swiser-pb-progress-bar {
-    width: 75%;
-    background-color: #f2d31b;
+.swiser-pb-progress-bar li:before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    background-color: var(--color-gray-disabled);
+    border-radius: 50%;
+    border: 2px solid var(--color-white);
+    position: absolute;
+    left: calc(50% - 6px);
+    bottom: -7px;
+    z-index: 3;
+    transition: all .2s ease-in-out;
 }
 
-#onehundred:checked ~ .swiser-pb-progress > .swiser-pb-progress-bar {
+.swiser-pb-progress-bar li:first-child:before {
+    left: 0;
+}
+
+.swiser-pb-progress-bar li:last-child:before {
+    right: 0;
+    left: auto;
+}
+
+.swiser-pb-progress-bar span {
+    transition: opacity .3s ease-in-out;
+}
+
+.swiser-pb-progress-bar li:not(.swiser-pb-is-active) span {
+    opacity: 0;
+}
+
+.swiser-pb-progress-bar .swiser-pb-is-complete:not(:first-child):after,
+.swiser-pb-progress-bar .swiser-pb-is-active:not(:first-child):after {
+    content: "";
+    display: block;
     width: 100%;
-    background-color: #86e01e;
+    position: absolute;
+    bottom: -2px;
+    left: -50%;
+    z-index: 2;
+    border-bottom: 2px solid var(--color-green);
 }
 
-.swiser-pb-radio {
-    display: none;
-}
-
-.swiser-pb-label {
+.swiser-pb-progress-bar li:last-child span {
+    width: 200%;
     display: inline-block;
-    margin: 0 5px 20px;
-    padding: 3px 8px;
-    color: #aaa;
-    text-shadow: 0 1px black;
-    border-radius: 3px;
-    cursor: pointer;
+    position: absolute;
+    left: -100%;
 }
 
-.swiser-pb-radio:checked + .swiser-pb-label {
-    color: white;
-    background: rgba(0, 0, 0, 0.25);
+.swiser-pb-progress-bar .swiser-pb-is-complete:last-child:after,
+.swiser-pb-progress-bar .swiser-pb-is-active:last-child:after {
+    width: 200%;
+    left: -100%;
 }
+
+.swiser-pb-progress-bar .swiser-pb-is-complete:before {
+    background-color: var(--color-green);
+}
+
+.swiser-pb-progress-bar .swiser-pb-is-active:before,
+.swiser-pb-progress-bar li:hover:before,
+.swiser-pb-progress-bar .swiser-pb-is-hovered:before {
+    background-color: var(--color-white);
+    border-color: var(--color-green);
+}
+
+.swiser-pb-progress-bar li:hover:before,
+.swiser-pb-progress-bar .swiser-pb-is-hovered:before {
+    transform: scale(1.33);
+}
+
+.swiser-pb-progress-bar li:hover span,
+.swiser-pb-progress-bar li.swiser-pb-is-hovered span {
+    opacity: 1;
+}
+
+.swiser-pb-progress-bar:hover li:not(:hover) span {
+    opacity: 0;
+}
+
+.swiser-pb-x-ray .swiser-pb-progress-bar,
+.swiser-pb-x-ray .swiser-pb-progress-bar li {
+    border: 1px dashed red;
+}
+
+.swiser-pb-progress-bar .swiser-pb-has-changes {
+    opacity: 1 !important;
+}
+
+.swiser-pb-progress-bar .swiser-pb-has-changes:before {
+    content: "";
+    display: block;
+    width: 8px;
+    height: 8px;
+    position: absolute;
+    left: calc(50% - 4px);
+    bottom: -20px;
+    background-image: url('data:image/svg+xml;charset=utf-8,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22%23ed1c24%22%20d%3D%22M4%200l4%208H0z%22%2F%3E%3C%2Fsvg%3E');
+}
+
 
