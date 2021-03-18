@@ -11,6 +11,7 @@ package com.team.absurdum.bukshev.bitbucket.swiser.assembly;
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.PullRequestDiff;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,6 +23,7 @@ public class DependenciesAssembly {
     @Bean
     public Gson gson() {
         final GsonBuilder gsonBuilder = new GsonBuilder();
+        gsonBuilder.registerTypeAdapter(PullRequestDiff.class, new PullRequestDiffJsonDeserializer());
         return gsonBuilder.create();
     }
 }

@@ -7,7 +7,7 @@
 
     <groupId>com.team.absurdum.bukshev.bitbucket</groupId>
     <artifactId>swiser</artifactId>
-    <version>1.0.2</version>
+    <version>1.0.4</version>
     <packaging>atlassian-plugin</packaging>
 
     <name>swiser</name>
@@ -137,6 +137,16 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.bitbucket.server</groupId>
+            <artifactId>bitbucket-git-api</artifactId>
+            <version>${bitbucket.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>com.atlassian.bitbucket.server</groupId>
+            <artifactId>bitbucket-scm-common</artifactId>
             <scope>provided</scope>
         </dependency>
     </dependencies>

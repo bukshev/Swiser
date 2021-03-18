@@ -8,13 +8,12 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.domain.candidates;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.model.CodeReviewCandidate;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SwiserPluginSettings;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SessionMetadata;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.CodeReviewCandidate;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.session.SessionMetadata;
 
 import java.util.List;
 
 public interface IElectCandidatesUseCase {
 
-    List<CodeReviewCandidate> electCandidates(final SwiserPluginSettings pluginSettings, final SessionMetadata sessionMetadata);
+    List<CodeReviewCandidate> electCandidates(final SessionMetadata sessionMetadata);
 }

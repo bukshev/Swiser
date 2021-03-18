@@ -9,7 +9,7 @@
 package com.team.absurdum.bukshev.bitbucket.swiser.data.settings;
 
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SwiserPluginSettings;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.settings.SwiserPluginSettings;
 
 @BitbucketComponent
 public final class PluginSettingsRepository implements IPluginSettingsDataSource {

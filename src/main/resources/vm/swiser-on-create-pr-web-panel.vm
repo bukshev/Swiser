@@ -17,17 +17,17 @@
 <div>Hello</div>
 <section>
     <h2>Last Step</h2>
-    <ol class="swiser-pb-progress-bar">
-        <li class="swiser-pb-is-complete"><span>Objective &amp; Template</span></li>
-        <li class="swiser-pb-is-complete"><span>Options</span></li>
-        <li class="swiser-pb-is-complete"><span>Step</span></li>
-        <li class="swiser-pb-is-complete"><span>In a Nutshell</span></li>
-        <li class="swiser-pb-is-complete"><span>Step</span></li>
-        <li class="swiser-pb-is-complete"><span>Step</span></li>
-        <li class="swiser-pb-is-complete"><span>Launch Date</span></li>
-        <li class="swiser-pb-is-complete"><span>Step</span></li>
-        <li class="swiser-pb-is-complete"><span>Step</span></li>
-        <li class="swiser-pb-is-active"><span>Agreement</span></li>
+    <ol id="swiser-pb-progress-bar-id" class="swiser-pb-progress-bar">
+        <li><span>Objective &amp; Template</span></li>
+        <li><span>Options</span></li>
+        <li><span>Step</span></li>
+        <li><span>In a Nutshell</span></li>
+        <li><span>Step</span></li>
+        <li><span>Step</span></li>
+        <li><span>Launch Date</span></li>
+        <li><span>Step</span></li>
+        <li><span>Step</span></li>
+        <li><span>Agreement</span></li>
     </ol>
 </section>
 </body>

@@ -8,13 +8,11 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy;
 
-import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.CodeReviewCandidate;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.PullRequestInfo;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SwiserPluginSettings;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SessionMetadata;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.CodeReviewCandidate;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.settings.SwiserPluginSettings;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.session.SessionMetadata;
 import com.team.absurdum.bukshev.bitbucket.swiser.domain.candidates.IElectCandidatesUseCase;
-import com.team.absurdum.bukshev.bitbucket.swiser.domain.codereview.ISpecifyReviewersUseCase;
+import com.team.absurdum.bukshev.bitbucket.swiser.domain.pull.ISpecifyReviewersUseCase;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.ServletRequestProcessingStrategy;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.retriever.IGetCandidatesParametersRetriever;
@@ -50,13 +48,17 @@ public final class GetCandidatesProcessingStrategy extends ServletRequestProcess
             throw new StrategyProcessingException();
         }
 
-        final PullRequestInfo pullRequestInfo = new PullRequestInfo(repositoryId, pullRequestId);
-
         final SwiserPluginSettings pluginSettings = extractPluginSettingsUseCase.getPluginSettings(repositoryId);
-        final SessionMetadata sessionMetadata = determineSessionMetadataUseCase.getSessionMetadata(repositoryId);
 
-        final List<CodeReviewCandidate> candidates = electCandidatesUseCase.electCandidates(pluginSettings, sessionMetadata);
-        specifyReviewersUseCase.specifyReviewers(pluginSettings, sessionMetadata, candidates);
+        final SessionMetadata sessionMetadata = SessionMetadata.newBuilder()
+                .setRepositoryId(repositoryId)
+                .setPullRequestId(pullRequestId)
+                .setServletResponse(servletResponse)
+                .setPluginSettings(pluginSettings)
+                .build();
+
+        final List<CodeReviewCandidate> candidates = electCandidatesUseCase.electCandidates(sessionMetadata);
+        specifyReviewersUseCase.specifyReviewers(sessionMetadata, candidates);
     }
 
     public static class Builder extends ServletRequestProcessingStrategy.Builder<GetCandidatesProcessingStrategy> {

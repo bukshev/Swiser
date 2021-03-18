@@ -8,7 +8,6 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.domain.session.IDetermineSessionMetadataUseCase;
 import com.team.absurdum.bukshev.bitbucket.swiser.domain.settings.IExtractPluginSettingsUseCase;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException;
 import org.slf4j.Logger;
@@ -22,7 +21,6 @@ public abstract class ServletRequestProcessingStrategy implements IServletReques
     protected static final Logger logger = LoggerFactory.getLogger(ServletRequestProcessingStrategy.class);
 
     protected IExtractPluginSettingsUseCase extractPluginSettingsUseCase;
-    protected IDetermineSessionMetadataUseCase determineSessionMetadataUseCase;
 
     protected Map<String, String[]> queryParameters;
     protected Map<String, Object> bodyParameters;
@@ -46,11 +44,6 @@ public abstract class ServletRequestProcessingStrategy implements IServletReques
 
         public Builder setExtractPluginSettingsUseCase(final IExtractPluginSettingsUseCase useCase) {
             this.strategy.extractPluginSettingsUseCase = useCase;
-            return this;
-        }
-
-        public Builder setDetermineSessionMetadataUseCase(final IDetermineSessionMetadataUseCase useCase) {
-            this.strategy.determineSessionMetadataUseCase = useCase;
             return this;
         }
 

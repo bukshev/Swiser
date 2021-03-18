@@ -8,7 +8,7 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.data.settings;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SwiserPluginSettings;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.settings.SwiserPluginSettings;
 
 public interface IPluginSettingsDataSource {
 

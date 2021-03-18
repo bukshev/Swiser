@@ -14,7 +14,7 @@ import com.atlassian.sal.api.pluginsettings.PluginSettingsFactory;
 import com.google.gson.Gson;
 import com.team.absurdum.bukshev.bitbucket.swiser.data.settings.IPluginSettingsDataSource;
 import com.team.absurdum.bukshev.bitbucket.swiser.data.settings.PluginSettingsRepository;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.SwiserPluginSettings;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.settings.SwiserPluginSettings;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

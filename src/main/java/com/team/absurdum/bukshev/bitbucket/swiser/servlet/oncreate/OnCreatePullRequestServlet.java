@@ -37,11 +37,6 @@ public final class OnCreatePullRequestServlet extends HttpServlet {
         logger.info("Start processing '" + request.getRequestURI() + "' with strategy: " + strategy.getClass().getSimpleName());
         try {
             strategy.startProcessing();
-            try {
-                response.getWriter().write("HUI");
-            } catch (IOException exception) {
-                exception.printStackTrace();
-            }
 
         } catch (final StrategyProcessingException exception) {
             logger.error(exception.toString());

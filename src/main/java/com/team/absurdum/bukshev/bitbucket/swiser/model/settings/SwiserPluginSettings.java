@@ -6,7 +6,7 @@
 //  Copyright (c) 2021 Ivan Bukshev. All rights reserved.
 //
 
-package com.team.absurdum.bukshev.bitbucket.swiser.model;
+package com.team.absurdum.bukshev.bitbucket.swiser.model.settings;
 
 public final class SwiserPluginSettings {
 

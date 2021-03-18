@@ -17,8 +17,7 @@ import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.co
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.ServletRequestProcessingStrategy;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.extractor.IServletRequestParametersExtractor;
 import com.team.absurdum.bukshev.bitbucket.swiser.domain.candidates.IElectCandidatesUseCase;
-import com.team.absurdum.bukshev.bitbucket.swiser.domain.codereview.ISpecifyReviewersUseCase;
-import com.team.absurdum.bukshev.bitbucket.swiser.domain.session.IDetermineSessionMetadataUseCase;
+import com.team.absurdum.bukshev.bitbucket.swiser.domain.pull.ISpecifyReviewersUseCase;
 import com.team.absurdum.bukshev.bitbucket.swiser.domain.settings.IExtractPluginSettingsUseCase;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.retriever.RequestParametersRetriever;
 
@@ -36,7 +35,6 @@ public final class ServletProcessingStrategyFactory implements IServletProcessin
     private final IBadServletRequestContextStorage badContextStorage;
 
     private final IExtractPluginSettingsUseCase extractPluginSettingsUseCase;
-    private final IDetermineSessionMetadataUseCase determineSessionMetadataUseCase;
     private final IElectCandidatesUseCase electCandidatesUseCase;
     private final ISpecifyReviewersUseCase specifyReviewersUseCase;
 
@@ -44,16 +42,13 @@ public final class ServletProcessingStrategyFactory implements IServletProcessin
                                             final RequestParametersRetriever parametersRetriever,
                                             final IBadServletRequestContextStorage badContextStorage,
                                             final IExtractPluginSettingsUseCase extractPluginSettingsUseCase,
-                                            final IDetermineSessionMetadataUseCase determineSessionMetadataUseCase,
                                             final IElectCandidatesUseCase electCandidatesUseCase,
                                             final ISpecifyReviewersUseCase specifyReviewersUseCase) {
 
         this.parametersExtractor = parametersExtractor;
         this.parametersRetriever = parametersRetriever;
         this.badContextStorage = badContextStorage;
-
         this.extractPluginSettingsUseCase = extractPluginSettingsUseCase;
-        this.determineSessionMetadataUseCase = determineSessionMetadataUseCase;
         this.electCandidatesUseCase = electCandidatesUseCase;
         this.specifyReviewersUseCase = specifyReviewersUseCase;
     }
@@ -81,7 +76,6 @@ public final class ServletProcessingStrategyFactory implements IServletProcessin
 
         return strategyBuilder
                 .setExtractPluginSettingsUseCase(extractPluginSettingsUseCase)
-                .setDetermineSessionMetadataUseCase(determineSessionMetadataUseCase)
                 .setServletResponse(response)
                 .build();
     }
