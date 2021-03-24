@@ -41,7 +41,7 @@ Swiser — Это плагин для Bitbucket, который устанавл
 | Dependency | Link |
 | ------ | ------ |
 | **Gson** | https://github.com/google/gson |
-| **Atlassian Bitbucket JAVA API** | https://docs.atlassian.com/bitbucket-server/javadoc/7.11.2/api/ |
+| **Atlassian Bitbucket Java API** | https://docs.atlassian.com/bitbucket-server/javadoc/7.11.2/api/ |
 
 ## License
 
