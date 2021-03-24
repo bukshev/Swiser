@@ -1,0 +1,33 @@
+##
+##  File: swiser-on-create-pr-web-panel.vm
+##  Project: swiser
+##  Created by Ivan Bukshev on 10.03.2021.
+##  Copyright (c) 2021 Ivan Bukshev. All rights reserved.
+##
+
+<html>
+<head>
+    <meta name="decorator" content="atl.general">
+    $webResourceManager.requireResourcesForContext("main-resources")
+</head>
+<body>
+    <section class="container">
+        <div>
+            <script>SwiserPullRequestWebPanel.sync(AJS.$)</script>
+        </div>
+        <div id="swiser-on-create-pr-web-panel-container">
+            <ol class="aui-progress-tracker" style="width: 100%">
+                <li class="aui-progress-tracker-step aui-progress-tracker-step-current" style="width:17%"><span>Получаем метадату</span></li>
+                <li class="aui-progress-tracker-step" style="width:17%"><span>Получаем файлы</span></li>
+                <li class="aui-progress-tracker-step" style="width:17%"><span>Анализируем авторов</span></li>
+                <li class="aui-progress-tracker-step" style="width:17%"><span>Выбираем кандидатов</span></li>
+                <li class="aui-progress-tracker-step" style="width:17%"><span>Выставялем ревьюеров</span></li>
+                <li class="aui-progress-tracker-step" style="width:17%"><span>Обновляем страницу</span></li>
+            </ol>
+            <div id="swiser-pr-widget-spinner-container-id" style="display: flex; justify-content: center;">
+                <aui-spinner size="large"></aui-spinner>
+            </div>
+        </div>
+    </section>
+</body>
+</html>

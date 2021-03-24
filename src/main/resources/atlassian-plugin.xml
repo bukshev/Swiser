@@ -1,3 +1,8 @@
+<!--    File: OnCreatePullRequestCondition.java                 -->
+<!--    Project: swiser                                         -->
+<!--    Created by Ivan Bukshev on 10.03.2021.                  -->
+<!--    Copyright (c) 2021 Ivan Bukshev. All rights reserved.   -->
+
 <atlassian-plugin key="${atlassian.plugin.key}" name="${project.name}" plugins-version="2">
     <plugin-info>
         <description>${project.description}</description>
@@ -7,18 +12,36 @@
         <param name="plugin-logo">images/pluginLogo.png</param>
     </plugin-info>
 
-    <!-- add our i18n resource -->
+    <!-- i18n resource -->
     <resource type="i18n" name="i18n" location="swiser"/>
-    
-    <!-- add our web resources -->
-    <web-resource key="swiser-resources" name="swiser Web Resources">
-        <dependency>com.atlassian.auiplugin:ajs</dependency>
-        
-        <resource type="download" name="swiser.css" location="/css/swiser.css"/>
-        <resource type="download" name="swiser.js" location="/js/swiser.js"/>
-        <resource type="download" name="images/" location="/images"/>
 
-        <context>swiser</context>
+    <!-- Servlets -->
+    <servlet name="OnCreatePullRequestServlet" key="swiser-on-create-pr-widget-servlet-key" i18n-name-key="swiser-on-create-pr-widget-servlet.name"
+             class="com.team.absurdum.bukshev.bitbucket.swiser.servlet.oncreate.OnCreatePullRequestServlet">
+        <description key="swiser-on-create-pr-widget-servlet.description">General servlet for Bitbucket plugin Swiser</description>
+        <url-pattern>/swiser/candidates</url-pattern>
+    </servlet>
+
+    <!-- Web Panels -->
+    <web-panel key="swiser-on-create-pr-web-panel-key" location="bitbucket.web.repository.banner">
+        <resource name="view" type="velocity" location="/vm/swiser-on-create-pr-web-panel.vm"/>
+        <condition class="com.team.absurdum.bukshev.bitbucket.swiser.condition.OnCreatePullRequestCondition" />
+    </web-panel>
+
+    <!-- Client Resources -->
+    <client-resource key="swiser-on-create-pr-client-resource-key" name="Client-resources for widget on OnCreate-PR Page">
+        <directory location="/css/oncreate" />
+    </client-resource>
+
+    <!-- Web Resources -->
+    <web-resource key="swiser-on-create-pr-web-resource-key" name="Web-resources for widget on OnCreate-PR Page">
+        <resource type="download" name="swiser-on-create-pr-web-panel.js" location="/js/swiser-on-create-pr-web-panel.js" />
+        <resource type="download" name="swiser-request-executor.js" location="/js/swiser-request-executor.js" />
+        <resource type="download" name="swiser-on-create-pr-progress-animator" location="/js/swiser-on-create-pr-progress-animator.js" />
+        <dependency>com.atlassian.auiplugin:aui-progress-tracker</dependency>
+        <dependency>com.atlassian.auiplugin:aui-spinner</dependency>
+        <dependency>com.team.absurdum.bukshev.bitbucket.swiser:swiser-on-create-pr-client-resource-key</dependency>
+        <context>main-resources</context>
     </web-resource>
     
 </atlassian-plugin>
