@@ -9,18 +9,16 @@
 package com.team.absurdum.bukshev.bitbucket.swiser.data.pull;
 
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
+import com.google.gson.JsonSyntaxException;
+import com.team.absurdum.bukshev.bitbucket.swiser.environment.Environment;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.PullRequestDiff;
-import com.team.absurdum.bukshev.bitbucket.swiser.utilities.network.INetworkClient;
-import com.team.absurdum.bukshev.bitbucket.swiser.utilities.network.NetworkClientRequest;
-import com.team.absurdum.bukshev.bitbucket.swiser.utilities.network.NetworkClientResponse;
+import com.team.absurdum.bukshev.bitbucket.swiser.utilities.network.*;
 import com.team.absurdum.bukshev.bitbucket.swiser.utilities.parsing.IPullRequestDiffParser;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.HttpMethod;
-import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 
-import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -40,29 +38,35 @@ public final class BitbucketPullRequestDataSource implements IPullRequestDataSou
     }
 
     @Override
-    public List<String> getChangedFileNames(final int repositoryId, final long pullRequestId) {
-        // TODO: Move to Constants
-        final String url = String.format(
-                "http://127.0.0.1:7990/bitbucket/projects/PROJECT_1/repos/rep_1/pull-requests/%d/diff",
-                pullRequestId
-        );
+    public List<String> getChangedFileNames(final int repositoryId, final long pullRequestId) throws ObtainDiffException {
+        final HttpMethod httpMethod = Environment.Api.GetDiff.HTTP_METHOD;
+        final String url = String.format(Environment.Api.GetDiff.URL_FORMAT, pullRequestId);
+        final MultiValueMap<String, String> headersMap = Environment.Api.GetDiff.HEADERS_MAP;
+        final String emptyBody = "";
 
-        // TODO: Move to Constants
-        final MultiValueMap<String, String> headersMap = new LinkedMultiValueMap<String, String>() {{
-            put("Content-Type", Collections.singletonList("application/json"));
-            put("Authorization", Collections.singletonList("Bearer MDU2MDM1OTY4NjgwOmKoUHyHr4olWmSHHJoIsuNIsPAe"));
-        }};
+        final NetworkClientRequest<String> request = new NetworkClientRequest<>(httpMethod, url, headersMap, emptyBody);
 
-        logger.info("Try to execute " + HttpMethod.GET + " " + url);
-        final NetworkClientRequest<String> request = new NetworkClientRequest<>(HttpMethod.GET, url, headersMap, "");
-        final NetworkClientResponse response = networkClient.execute(request);
+        logger.debug("Try to execute request: " + request.toString());
 
-        // TODO: Process exceptions here
-        final PullRequestDiff pullRequestDiff = pullRequestDiffParser.getPullRequestDiff(response.getJsonResponse());
-        logger.info("Parsed (Java Object) response: " + pullRequestDiff.toString());
+        final NetworkClientResponse response;
+        try {
+            response = networkClient.execute(request);
+        } catch (ClientNetworkErrorException | UnknownNetworkException | ServerNetworkErrorException exception) {
+            throw new ObtainDiffException(exception);
+        }
 
-        return pullRequestDiff.getDiffFiles()
-                .stream()
+        logger.debug("Received response: " + response.toString());
+
+        final PullRequestDiff pullRequestDiff;
+        try {
+            pullRequestDiff = pullRequestDiffParser.getPullRequestDiff(response.getJsonResponse());
+        } catch (final JsonSyntaxException exception) {
+            throw new ObtainDiffException(exception);
+        }
+
+        logger.debug("Parsed (Java Object) response: " + pullRequestDiff.toString());
+
+        return pullRequestDiff.getDiffFiles().stream()
                 .map(PullRequestDiff.DiffFile::getFilePath)
                 .collect(Collectors.toList());
     }

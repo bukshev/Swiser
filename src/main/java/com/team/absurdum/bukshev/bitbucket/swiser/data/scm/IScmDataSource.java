@@ -8,11 +8,12 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.data.scm;
 
+import com.team.absurdum.bukshev.bitbucket.swiser.data.common.exception.RepositoryNotFoundException;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IScmUser;
 
 import java.util.List;
 
 public interface IScmDataSource {
 
-    List<IScmUser> getContributors(final int repositoryId, final List<String> fileNames);
+    List<IScmUser> getContributors(final int repositoryId, final List<String> fileNames) throws RepositoryNotFoundException, GitCommandException;
 }

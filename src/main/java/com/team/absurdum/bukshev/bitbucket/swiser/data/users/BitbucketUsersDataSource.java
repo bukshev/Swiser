@@ -15,7 +15,7 @@ import com.atlassian.bitbucket.util.PageRequestImpl;
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.user.BitbucketUser;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IUser;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IServiceUser;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -33,12 +33,10 @@ public final class BitbucketUsersDataSource implements IUsersDataSource {
     }
 
     @Override
-    public List<IUser> getAllUsers() {
+    public List<IServiceUser> getAllUsers() {
         final PageRequest pageRequest = new PageRequestImpl(PAGE_START_POSITION, PAGE_LIMIT);
 
-        return userService
-                .findUsers(pageRequest)
-                .stream()
+        return userService.findUsers(pageRequest).stream()
                 .filter(user -> user.getType() == UserType.NORMAL)
                 .map(BitbucketUser::new)
                 .collect(Collectors.toList());

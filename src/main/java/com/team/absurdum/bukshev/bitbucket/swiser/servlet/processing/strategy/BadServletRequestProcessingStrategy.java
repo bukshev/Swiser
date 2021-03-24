@@ -8,7 +8,6 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy;
 
-import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.data.BadServletRequestContext;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.ServletRequestProcessingStrategy;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.retriever.IRequestParametersRetriever;
@@ -29,7 +28,6 @@ public final class BadServletRequestProcessingStrategy extends ServletRequestPro
 
     @Override
     public void startProcessing() {
-
     }
 
     public static class Builder extends ServletRequestProcessingStrategy.Builder<BadServletRequestProcessingStrategy> {

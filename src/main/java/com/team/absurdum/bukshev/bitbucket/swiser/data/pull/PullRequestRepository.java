@@ -22,7 +22,7 @@ public final class PullRequestRepository implements IPullRequestDataSource {
     }
 
     @Override
-    public List<String> getChangedFileNames(final int repositoryId, final long pullRequestId) {
+    public List<String> getChangedFileNames(final int repositoryId, final long pullRequestId) throws ObtainDiffException {
         return bitbucketPullRequestDataSource.getChangedFileNames(repositoryId, pullRequestId);
     }
 }

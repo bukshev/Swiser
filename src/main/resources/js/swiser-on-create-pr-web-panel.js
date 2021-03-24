@@ -1,3 +1,10 @@
+//
+//  File: swiser-on-create-pr-web-panel.js
+//  Project: swiser
+//  Created by Ivan Bukshev on 10.03.2021.
+//  Copyright (c) 2021 Ivan Bukshev. All rights reserved.
+//
+
 const SwiserPullRequestWebPanel = {
 
     sync: function ($) {
@@ -9,46 +16,46 @@ const SwiserPullRequestWebPanel = {
             return;
         }
 
-        const navBuilder = require("bitbucket/util/navbuilder");
-        const servletURL = navBuilder.pluginServlets().build()
-            + "/swiser/candidates?repositoryId=" + repository.id + "&" + "pullRequestId=" + pullRequest.id;
-
-        function didReceiveResponse(json) {
-            console.log(json);
+        const reviewersNumber = pullRequest.reviewers.length;
+        console.log("Reviewers number: " + reviewersNumber);
+        if (reviewersNumber >= 2) {
+            SwiserPullRequestProgressAnimator.dismissSpinner();
+            SwiserPullRequestWebPanel.removePanel();
+            return;
         }
 
-        console.log("Reviewers number: " + pullRequest.reviewers.length);
+        SwiserPullRequestProgressAnimator.animate();
 
-        if (pullRequest.reviewers.length < 2) {
-            console.log("Send a request to the server.");
+        const url = require("bitbucket/util/navbuilder").pluginServlets().build()
+            + "/swiser/candidates?repositoryId=" + repository.id + "&" + "pullRequestId=" + pullRequest.id;
 
-            const server = require("bitbucket/util/server");
-            setTimeout(function () {
-                server.ajax({
-                    url: servletURL,
-                    method: "GET",
-                    success: didReceiveResponse,
-                    contentType: "application/json; charset=UTF-8",
-                    statusCode: {
-                        444: didReceiveResponse
-                    }
-                });
-            }, 500);
+        SwiserRequestExecutor.asyncExecute(
+            'GET',
+            url,
+            SwiserPullRequestWebPanel.didReceiveSuccessResponse,
+            SwiserPullRequestWebPanel.didReceiveFailureResponse,
+            'application/json; charset=UTF-8',
+            750
+        );
+    },
 
+    didReceiveSuccessResponse: function (json) {
+        console.log('didReceiveSuccessResponse');
+        console.log(json);
+    },
 
-            var stepsNumber = $("ol li").length;
-            var counter = 0;
+    didReceiveFailureResponse: function (json) {
+        console.log('didReceiveFailureResponse');
+        console.log(json);
+        SwiserPullRequestProgressAnimator.dismissSpinner();
+        SwiserPullRequestWebPanel.removePanel();
+    },
 
-            setInterval(function() {
-                if(stepsNumber === counter || counter < 0) {
-                    return;
-                }
-
-                $("ol li").eq(counter).addClass("swiser-pb-is-complete");
-                counter++;
-
-                console.log(counter);
-            }, 200);
+    removePanel: function () {
+        console.log('removePanel');
+        const container = document.getElementById("swiser-on-create-pr-web-panel-container");
+        if (null !== container) {
+            container.remove()
         }
     }
 };

@@ -12,5 +12,5 @@ import java.util.List;
 
 public interface IPullRequestDataSource {
 
-    List<String> getChangedFileNames(final int repositoryId, final long pullRequestId);
+    List<String> getChangedFileNames(final int repositoryId, final long pullRequestId) throws ObtainDiffException;
 }

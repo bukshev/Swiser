@@ -1,5 +1,5 @@
 //
-//  File: IUser.java
+//  File: IServiceUser.java
 //  Project: swiser
 //
 //  Created by Ivan Bukshev on 15.03.2021.
@@ -8,7 +8,7 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.model.user;
 
-public interface IUser {
+public interface IServiceUser {
 
     int getId();
 

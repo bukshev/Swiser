@@ -9,7 +9,7 @@
 package com.team.absurdum.bukshev.bitbucket.swiser.data.users;
 
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IUser;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IServiceUser;
 
 import java.util.List;
 
@@ -23,7 +23,7 @@ public final class UsersRepository implements IUsersDataSource {
     }
 
     @Override
-    public List<IUser> getAllUsers() {
+    public List<IServiceUser> getAllUsers() {
         return bitbucketUsersDataSource.getAllUsers();
     }
 }

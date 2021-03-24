@@ -35,7 +35,11 @@
 
     <!-- Web Resources -->
     <web-resource key="swiser-on-create-pr-web-resource-key" name="Web-resources for widget on OnCreate-PR Page">
-        <resource type="download" name="orbit-pull-request-widget.js" location="/js/swiser-on-create-pr-web-panel.js" />
+        <resource type="download" name="swiser-on-create-pr-web-panel.js" location="/js/swiser-on-create-pr-web-panel.js" />
+        <resource type="download" name="swiser-request-executor.js" location="/js/swiser-request-executor.js" />
+        <resource type="download" name="swiser-on-create-pr-progress-animator" location="/js/swiser-on-create-pr-progress-animator.js" />
+        <dependency>com.atlassian.auiplugin:aui-progress-tracker</dependency>
+        <dependency>com.atlassian.auiplugin:aui-spinner</dependency>
         <dependency>com.team.absurdum.bukshev.bitbucket.swiser:swiser-on-create-pr-client-resource-key</dependency>
         <context>main-resources</context>
     </web-resource>

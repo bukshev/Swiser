@@ -11,15 +11,13 @@ package com.team.absurdum.bukshev.bitbucket.swiser.condition;
 import com.atlassian.plugin.PluginParseException;
 import com.atlassian.plugin.web.Condition;
 import com.team.absurdum.bukshev.bitbucket.swiser.utilities.IPluginDisplayDirector;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Map;
 
 public final class OnCreatePullRequestCondition implements Condition {
 
-    private static final Logger logger = LoggerFactory.getLogger(OnCreatePullRequestCondition.class);
+    private static final String METADATA_REQUEST_KEY = "request";
 
     private final IPluginDisplayDirector pluginDisplayDirector;
 
@@ -34,7 +32,7 @@ public final class OnCreatePullRequestCondition implements Condition {
 
     @Override
     public boolean shouldDisplay(final Map<String, Object> map) {
-        final HttpServletRequest request = (HttpServletRequest) map.get("request");
+        final HttpServletRequest request = (HttpServletRequest) map.get(METADATA_REQUEST_KEY);
         return pluginDisplayDirector.shouldDisplayOnPage(request.getRequestURI());
     }
 }

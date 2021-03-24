@@ -15,5 +15,5 @@ import java.util.List;
 
 public interface IElectCandidatesUseCase {
 
-    List<CodeReviewCandidate> electCandidates(final SessionMetadata sessionMetadata);
+    List<CodeReviewCandidate> electCandidates(final SessionMetadata sessionMetadata) throws CandidatesElectionException;
 }

@@ -10,5 +10,5 @@ package com.team.absurdum.bukshev.bitbucket.swiser.utilities.network;
 
 public interface INetworkClient {
 
-    <BodyParametersType> NetworkClientResponse execute(final NetworkClientRequest<BodyParametersType> request);
+    <BodyParametersType> NetworkClientResponse execute(final NetworkClientRequest<BodyParametersType> request) throws ClientNetworkErrorException, ServerNetworkErrorException, UnknownNetworkException;
 }

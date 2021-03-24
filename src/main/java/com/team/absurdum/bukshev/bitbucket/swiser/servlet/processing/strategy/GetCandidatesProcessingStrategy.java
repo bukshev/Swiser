@@ -8,6 +8,7 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy;
 
+import com.team.absurdum.bukshev.bitbucket.swiser.domain.candidates.CandidatesElectionException;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.CodeReviewCandidate;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.settings.SwiserPluginSettings;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.session.SessionMetadata;
@@ -19,6 +20,8 @@ import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.r
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.utilities.retriever.RequestParametersRetrieveException;
 
 import java.util.List;
+
+import static com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException.*;
 
 public final class GetCandidatesProcessingStrategy extends ServletRequestProcessingStrategy {
 
@@ -39,13 +42,13 @@ public final class GetCandidatesProcessingStrategy extends ServletRequestProcess
     public void startProcessing() throws StrategyProcessingException {
         final int repositoryId;
         final long pullRequestId;
+
         try {
             repositoryId = parametersRetriever.retrieveQueryRepositoryId(queryParameters);
             pullRequestId = parametersRetriever.retrieveQueryPullRequestId(queryParameters);
 
         } catch (final RequestParametersRetrieveException exception) {
-            logger.error(exception.toString());
-            throw new StrategyProcessingException();
+            throw new StrategyProcessingException(Reason.BAD_REQUEST, exception);
         }
 
         final SwiserPluginSettings pluginSettings = extractPluginSettingsUseCase.getPluginSettings(repositoryId);
@@ -57,8 +60,13 @@ public final class GetCandidatesProcessingStrategy extends ServletRequestProcess
                 .setPluginSettings(pluginSettings)
                 .build();
 
-        final List<CodeReviewCandidate> candidates = electCandidatesUseCase.electCandidates(sessionMetadata);
-        specifyReviewersUseCase.specifyReviewers(sessionMetadata, candidates);
+        try {
+            final List<CodeReviewCandidate> candidates = electCandidatesUseCase.electCandidates(sessionMetadata);
+            specifyReviewersUseCase.specifyReviewers(sessionMetadata, candidates);
+
+        } catch (final CandidatesElectionException exception) {
+            throw new StrategyProcessingException(Reason.ELECTION_FAILURE, exception.getUserFriendlyDetails(), exception);
+        }
     }
 
     public static class Builder extends ServletRequestProcessingStrategy.Builder<GetCandidatesProcessingStrategy> {

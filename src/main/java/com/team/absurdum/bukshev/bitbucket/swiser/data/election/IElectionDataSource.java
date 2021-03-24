@@ -10,11 +10,11 @@ package com.team.absurdum.bukshev.bitbucket.swiser.data.election;
 
 import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.CodeReviewCandidate;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IScmUser;
-import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IUser;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IServiceUser;
 
 import java.util.List;
 
 public interface IElectionDataSource {
 
-    List<CodeReviewCandidate> electedCandidates(final List<IUser> users, final List<IScmUser> scmUsers);
+    List<CodeReviewCandidate> electedCandidates(final List<IServiceUser> users, final List<IScmUser> scmUsers);
 }

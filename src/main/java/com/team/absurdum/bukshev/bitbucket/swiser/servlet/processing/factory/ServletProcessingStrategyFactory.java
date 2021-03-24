@@ -11,6 +11,7 @@ package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.factory;
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 import com.google.gson.JsonSyntaxException;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.data.IBadServletRequestContextStorage;
+import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.BadServletRequestProcessingStrategy;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.GetCandidatesProcessingStrategy;
 import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.strategy.common.IServletRequestProcessingStrategy;
@@ -77,6 +78,17 @@ public final class ServletProcessingStrategyFactory implements IServletProcessin
         return strategyBuilder
                 .setExtractPluginSettingsUseCase(extractPluginSettingsUseCase)
                 .setServletResponse(response)
+                .build();
+    }
+
+    @Override
+    public IServletRequestProcessingStrategy getErrorStrategy(final HttpServletRequest request,
+                                                              final HttpServletResponse response,
+                                                              final StrategyProcessingException exception) {
+
+        return BadServletRequestProcessingStrategy.newBuilder()
+                .setParametersRetriever(parametersRetriever)
+                .setContext(badContextStorage.getExceptionContext(exception))
                 .build();
     }
 

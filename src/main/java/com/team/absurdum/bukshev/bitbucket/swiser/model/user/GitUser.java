@@ -8,6 +8,8 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.model.user;
 
+import java.util.Objects;
+
 public final class GitUser implements IScmUser {
 
     private final String username;
@@ -31,8 +33,22 @@ public final class GitUser implements IScmUser {
     @Override
     public String toString() {
         return "GitUser{" +
-                "username='" + username + '\'' +
-                ", email='" + email + '\'' +
+                "displayFullName='" + getDisplayFullName() + '\'' +
+                ", email='" + getEmail() + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final GitUser gitUser = (GitUser) o;
+        return Objects.equals(username, gitUser.username)
+                && Objects.equals(email, gitUser.email);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(username, email);
     }
 }

@@ -8,13 +8,13 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.model.pull;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IUser;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IServiceUser;
 
-public final class CodeReviewCandidate implements IUser {
+public final class CodeReviewCandidate implements IServiceUser {
 
-    private final IUser user;
+    private final IServiceUser user;
 
-    public CodeReviewCandidate(final IUser user) {
+    public CodeReviewCandidate(final IServiceUser user) {
         this.user = user;
     }
 

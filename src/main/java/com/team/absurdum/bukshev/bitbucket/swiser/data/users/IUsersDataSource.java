@@ -8,11 +8,11 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.data.users;
 
-import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IUser;
+import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IServiceUser;
 
 import java.util.List;
 
 public interface IUsersDataSource {
 
-    List<IUser> getAllUsers();
+    List<IServiceUser> getAllUsers();
 }

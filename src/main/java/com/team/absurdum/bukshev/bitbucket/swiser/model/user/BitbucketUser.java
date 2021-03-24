@@ -10,7 +10,9 @@ package com.team.absurdum.bukshev.bitbucket.swiser.model.user;
 
 import com.atlassian.bitbucket.user.ApplicationUser;
 
-public final class BitbucketUser implements IUser {
+import java.util.Objects;
+
+public final class BitbucketUser implements IServiceUser {
 
     private final ApplicationUser user;
 
@@ -40,7 +42,25 @@ public final class BitbucketUser implements IUser {
     @Override
     public String toString() {
         return "BitbucketUser{" +
-                "user=" + user +
+                "id=" + getId() +
+                ", username=" + getUsername() +
+                ", displayFullName=" + getDisplayFullName() +
+                ", email=" + getEmail() +
                 '}';
+    }
+
+    @Override
+    public boolean equals(final Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        final BitbucketUser that = (BitbucketUser) o;
+        return Objects.equals(user.getDisplayName(), that.user.getDisplayName())
+                && Objects.equals(user.getName(), that.user.getName())
+                && Objects.equals(user.getId(), that.user.getId());
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(user);
     }
 }

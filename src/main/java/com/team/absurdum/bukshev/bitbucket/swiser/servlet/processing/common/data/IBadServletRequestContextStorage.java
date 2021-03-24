@@ -8,6 +8,8 @@
 
 package com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.data;
 
+import com.team.absurdum.bukshev.bitbucket.swiser.servlet.processing.common.exception.StrategyProcessingException;
+
 public interface IBadServletRequestContextStorage {
 
     BadServletRequestContext getJsonSyntaxExceptionContext();
@@ -15,4 +17,6 @@ public interface IBadServletRequestContextStorage {
     BadServletRequestContext getIOExceptionContext();
 
     BadServletRequestContext getUnknownRequestUriContext();
+
+    BadServletRequestContext getExceptionContext(final StrategyProcessingException exception);
 }

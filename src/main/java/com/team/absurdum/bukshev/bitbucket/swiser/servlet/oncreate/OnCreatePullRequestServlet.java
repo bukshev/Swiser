@@ -17,7 +17,6 @@ import org.slf4j.LoggerFactory;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 public final class OnCreatePullRequestServlet extends HttpServlet {
 
@@ -32,14 +31,25 @@ public final class OnCreatePullRequestServlet extends HttpServlet {
     @Override
     protected void doGet(final HttpServletRequest request, final HttpServletResponse response) {
         logger.info("Determine the processing strategy for request: " + request.getRequestURI());
+
         final IServletRequestProcessingStrategy strategy = processingStrategyFactory.getStrategy(request, response);
 
         logger.info("Start processing '" + request.getRequestURI() + "' with strategy: " + strategy.getClass().getSimpleName());
+
         try {
             strategy.startProcessing();
 
         } catch (final StrategyProcessingException exception) {
-            logger.error(exception.toString());
+            logger.error("Error user-friendly title: " + exception.getUserFriendlyTitle());
+            logger.error("Error user-friendly details: " + exception.getUserFriendlyDetails());
+            logger.error("Error localized message: " + exception.getLocalizedMessage());
+
+            final IServletRequestProcessingStrategy errorStrategy = processingStrategyFactory.getErrorStrategy(request, response, exception);
+            try {
+                errorStrategy.startProcessing();
+            } catch (StrategyProcessingException innerException) {
+                logger.error(innerException.toString());
+            }
         }
     }
 }

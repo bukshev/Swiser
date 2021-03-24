@@ -14,6 +14,7 @@ import com.atlassian.bitbucket.repository.RepositoryService;
 import com.atlassian.bitbucket.scm.ScmService;
 import com.atlassian.plugin.spring.scanner.annotation.component.BitbucketComponent;
 import com.atlassian.plugin.spring.scanner.annotation.imports.ComponentImport;
+import com.team.absurdum.bukshev.bitbucket.swiser.data.common.exception.RepositoryNotFoundException;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.user.GitUser;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.user.IScmUser;
 import org.slf4j.Logger;
@@ -23,7 +24,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 
 @BitbucketComponent
 public final class GitDataSource implements IScmDataSource {
@@ -46,13 +46,14 @@ public final class GitDataSource implements IScmDataSource {
     }
 
     @Override
-    public List<IScmUser> getContributors(final int repositoryId, final List<String> fileNames) {
+    public List<IScmUser> getContributors(final int repositoryId, final List<String> fileNames)
+            throws RepositoryNotFoundException, GitCommandException {
+
         final List<IScmUser> contributors = new ArrayList<>();
 
         final Repository repository = repositoryService.getById(repositoryId);
         if (null == repository) {
-            // TODO: Throw a specific error.
-            return contributors;
+            throw new RepositoryNotFoundException();
         }
 
         final String gitLogResult = scmService.createBuilder(repository).command(GIT_LOG_COMMAND)
@@ -60,9 +61,10 @@ public final class GitDataSource implements IScmDataSource {
                 .call();
 
         if (null == gitLogResult) {
-            // TODO: Throw a specific error.
-            return contributors;
+            throw new GitCommandException("The result of 'git " + GIT_LOG_COMMAND + "' command is null.");
         }
+
+        logger.debug("The result of 'git " + GIT_LOG_COMMAND + "' command: " + gitLogResult);
 
         final Pattern pattern = Pattern.compile(REGEX_PATTERN);
         final Matcher matcher = pattern.matcher(gitLogResult);

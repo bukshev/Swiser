@@ -7,7 +7,7 @@
 
     <groupId>com.team.absurdum.bukshev.bitbucket</groupId>
     <artifactId>swiser</artifactId>
-    <version>1.0.4</version>
+    <version>1.0.0</version>
     <packaging>atlassian-plugin</packaging>
 
     <name>swiser</name>
@@ -15,7 +15,7 @@
 
     <organization>
         <name>Ivan Bukshev</name>
-        <url>http://www.ivanbukshev.com/</url>
+        <url>https://www.ivanbukshev.com/</url>
     </organization>
 
     <properties>

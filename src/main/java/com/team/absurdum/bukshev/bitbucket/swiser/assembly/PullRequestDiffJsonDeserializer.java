@@ -9,7 +9,6 @@
 package com.team.absurdum.bukshev.bitbucket.swiser.assembly;
 
 import com.google.gson.*;
-import com.google.gson.reflect.TypeToken;
 import com.team.absurdum.bukshev.bitbucket.swiser.model.pull.PullRequestDiff;
 import org.springframework.stereotype.Component;
 
@@ -33,7 +32,6 @@ public final class PullRequestDiffJsonDeserializer implements JsonDeserializer<P
 
         final JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-
         final String fromHash;
         if (jsonObject.has(FROM_HASH_KEY)) {
             fromHash = jsonObject.get(FROM_HASH_KEY).getAsString();
@@ -56,10 +54,7 @@ public final class PullRequestDiffJsonDeserializer implements JsonDeserializer<P
             throw new JsonParseException("Key \"" + DIFFS_KEY + "\" was not found in JSON: " + jsonObject.toString());
         }
 
-        final PullRequestDiff pullRequestDiff = new PullRequestDiff(fromHash, toHash, diffFiles);
-        System.out.println("Custom parsed pullRequestDiff: " + pullRequestDiff.toString());
-
-        return pullRequestDiff;
+        return new PullRequestDiff(fromHash, toHash, diffFiles);
     }
 
     private List<PullRequestDiff.DiffFile> getParsedDiffFiles(final JsonArray jsonArray) {
